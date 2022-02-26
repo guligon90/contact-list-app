@@ -25,6 +25,11 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+### Node.js ###
+node_modules
+package-lock.json
+yarn.lock
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -105,8 +110,6 @@ celerybeat-schedule.*
 *.sage.py
 
 # Environments
-.env
-.venv
 env/
 venv/
 ENV/

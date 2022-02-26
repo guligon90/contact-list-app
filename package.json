@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "doctoc": "doctoc ./README.md --github"
+  },
+  "dependencies": {
+    "doctoc": "^2.1.0"
+  }
+}
