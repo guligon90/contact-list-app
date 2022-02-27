@@ -1,6 +1,5 @@
 import logging
 from datetime import datetime, timedelta
-from email.mime.multipart import MIMEMultipart
 from pathlib import Path
 from typing import Any, Dict, Optional
 

@@ -105,7 +105,6 @@ services:
         - traefik.http.services.${STACK_NAME?Variable not set}-pgadmin.loadbalancer.server.port=5050
 
   smtp:
-    container_name: smtp-server
     image: marcopas/docker-mailslurper
     ports:
       - target: 2500
@@ -151,10 +150,7 @@ services:
   backend:
     image: '${DOCKER_IMAGE_BACKEND?Variable not set}:${TAG-latest}'
     depends_on:
-      - celeryworker
       - db
-      - queue
-      - smtp
     env_file:
       - .env
     environment:
