@@ -1,4 +1,4 @@
-from .crud_contact import Contact
+from .crud_contact import contact
 from .crud_user import user
 
 # For a new basic set of CRUD operations you could just do
