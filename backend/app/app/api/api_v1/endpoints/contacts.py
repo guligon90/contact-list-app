@@ -5,6 +5,10 @@ from sqlalchemy.orm import Session
 
 from app import crud, models, schemas
 from app.api import deps
+from app.api.api_v1.exceptions.contacts import (
+    ContactAPIException,
+    ContactDuplicatedException,
+)
 
 router = APIRouter()
 
@@ -39,9 +43,12 @@ def create_contact(
     """
     Create new contact.
     """
-    contact = crud.contact.create_with_owner(
-        db=db, obj_in=contact_in, owner_id=current_user.id
-    )
+    try:
+        contact = crud.contact.create_with_owner(
+            db=db, obj_in=contact_in, owner_id=current_user.id
+        )
+    except ContactDuplicatedException as exc:
+        raise ContactAPIException(exc.status_code, exc.detail)
 
     return contact
 
@@ -60,14 +67,17 @@ def update_contact(
     contact = crud.contact.get(db=db, id=id)
 
     if not contact:
-        raise HTTPException(status_code=404, detail="Contact not found")
+        raise ContactAPIException(status_code=404, detail="Contact not found")
 
     if not crud.user.is_superuser(current_user) and (
         contact.owner_id != current_user.id
     ):
-        raise HTTPException(status_code=400, detail="Not enough permissions")
+        raise ContactAPIException(status_code=400, detail="Not enough permissions")
 
-    contact = crud.contact.update(db=db, db_obj=contact, obj_in=contact_in)
+    try:
+        contact = crud.contact.update(db=db, db_obj=contact, obj_in=contact_in)
+    except ContactDuplicatedException as exc:
+        raise ContactAPIException(status_code=exc.status_code, detail=exc.detail)
 
     return contact
 
@@ -85,7 +95,7 @@ def read_contact(
     contact = crud.contact.get(db=db, id=id)
 
     if not contact:
-        raise HTTPException(status_code=404, detail="Contact not found")
+        raise ContactAPIException(status_code=404, detail="Contact not found")
 
     if not crud.user.is_superuser(current_user) and (
         contact.owner_id != current_user.id
@@ -108,12 +118,12 @@ def delete_contact(
     contact = crud.contact.get(db=db, id=id)
 
     if not contact:
-        raise HTTPException(status_code=404, detail="Contact not found")
+        raise ContactAPIException(status_code=404, detail="Contact not found")
 
     if not crud.user.is_superuser(current_user) and (
         contact.owner_id != current_user.id
     ):
-        raise HTTPException(status_code=400, detail="Not enough permissions")
+        raise ContactAPIException(status_code=400, detail="Not enough permissions")
 
     contact = crud.contact.remove(db=db, id=id)
 
