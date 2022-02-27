@@ -10,7 +10,7 @@ if TYPE_CHECKING:
     from .user import User  # noqa: F401
 
 
-class GroupTags(Enum):
+class GroupTags(str, Enum):
     ACADEMIC = "academic"
     PERSONAL = "personal"
     PROFESSIONAL = "professional"
@@ -29,13 +29,14 @@ class StrEnumType(TypeDecorator):
         super(StrEnumType, self).__init__(*args, **kwargs)
         self._enumtype = enumtype
 
-    def process_bind_param(self, value):
+    def process_bind_param(self, value, dialect):
         if isinstance(value, int):
             return value
 
-        return value.value
+        # return value.value
+        return value
 
-    def process_result_value(self, value):
+    def process_result_value(self, value, dialect):
         return self._enumtype(value)
 
 
