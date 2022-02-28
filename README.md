@@ -53,23 +53,25 @@ Technical assessment regarding the position of full-stack engineer at [Horus Sma
 * Start the stack with Docker Compose:
 
 ```bash
-docker-compose build --pull
 docker-compose up -d
 ```
 
 * Now you can open your browser and interact with these URLs:
 
-| **Service** | **Description**                                                                | **URL**                |
-|-------------|--------------------------------------------------------------------------------|------------------------|
-| Backend     | SON based web API based on OpenAPI                                             | http://localhost/api   |
-| Frontend    | built with Docker, with routes handled based on the path                       | http://localhost       |
+| **Service** | **Description**                                                                   | **URL**                |
+|-------------|-----------------------------------------------------------------------------------|------------------------|
+| Backend     | JSON based web RESTful, written in Python, using FasAPI                           | http://localhost/api   |
+| Frontend    | UI, written in TypeScript, using the [Flux Architecture](https://dev.to/durutheguru/implementing-the-flux-architecture-pattern-in-vuejs-57gp) for Vue.js | http://localhost       |
 | Swagger UI  | Automatic interactive documentation with Swagger UI (from the OpenAPI backend) | http://localhost/docs  |
 | ReDoc       | Alternative automatic documentation with ReDoc (from the OpenAPI backend)      | http://localhost/redoc |
 | PGAdmin     | PostgreSQL web administration                                                  | http://localhost:5050  |
 | Flower      | Administration of Celery tasks                                                 | http://localhost:5555  |
 | Traefik UI  | To see how the routes are being handled by the proxy                           | http://localhost:8090  |
+| SMTP server | Local e-mailing service, that uses a Docker base image of [mailslurper](https://github.com/mailslurper/mailslurper)          | http://localhost:8080  |
 
-**Note**: The first time you start your stack, it might take a minute for it to be ready. While the backend waits for the database to be ready and configures everything. You can check the logs to monitor it.
+**Note 1**: The first time you start your stack, it might take a minute for it to be ready. While the backend waits for the database to be ready and configures everything. You can check the logs to monitor it.
+
+**Note 2**: In order to log into the system, one must use the credentials of the first superuser, created automatically by the back-end at startup. The username and password are specified in the project's [.env](./.env) file, corresponding respectively to `FIRST_SUPERUSER` and `FIRST_SUPERUSER_PASSWORD`.
 
 To check the logs, run:
 

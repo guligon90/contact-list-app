@@ -29,7 +29,7 @@ export const actions = {
                 commitSetLogInError(context, false);
                 await dispatchGetUserProfile(context);
                 await dispatchRouteLoggedIn(context);
-                commitAddNotification(context, { content: 'Logged in', color: 'success' });
+                commitAddNotification(context, { content: 'Logado', color: 'success' });
             } else {
                 await dispatchLogOut(context);
             }
@@ -50,7 +50,7 @@ export const actions = {
     },
     async actionUpdateUserProfile(context: MainContext, payload) {
         try {
-            const loadingNotification = { content: 'saving', showProgress: true };
+            const loadingNotification = { content: 'Salvando...', showProgress: true };
             commitAddNotification(context, loadingNotification);
             const response = (await Promise.all([
                 api.user.updateMe(context.state.token, payload),
@@ -58,7 +58,7 @@ export const actions = {
             ]))[0];
             commitSetUserProfile(context, response.data);
             commitRemoveNotification(context, loadingNotification);
-            commitAddNotification(context, { content: 'Profile successfully updated', color: 'success' });
+            commitAddNotification(context, { content: 'Perfil atualizado com sucesso', color: 'success' });
         } catch (error) {
             await dispatchCheckApiError(context, error as AxiosError);
         }
@@ -97,7 +97,7 @@ export const actions = {
     },
     async actionUserLogOut(context: MainContext) {
         await dispatchLogOut(context);
-        commitAddNotification(context, { content: 'Logged out', color: 'success' });
+        commitAddNotification(context, { content: 'Deslogado', color: 'success' });
     },
     actionRouteLogOut(context: MainContext) {
         if (router.currentRoute.path !== '/login') {
@@ -123,7 +123,7 @@ export const actions = {
         });
     },
     async passwordRecovery(context: MainContext, payload: { username: string }) {
-        const loadingNotification = { content: 'Sending password recovery email', showProgress: true };
+        const loadingNotification = { content: 'Enviando e-mail de recuperação de senha', showProgress: true };
         try {
             commitAddNotification(context, loadingNotification);
             const response = (await Promise.all([
@@ -131,15 +131,15 @@ export const actions = {
                 await new Promise<void>((resolve, reject) => setTimeout(() => resolve(), 500)),
             ]))[0];
             commitRemoveNotification(context, loadingNotification);
-            commitAddNotification(context, { content: 'Password recovery email sent', color: 'success' });
+            commitAddNotification(context, { content: 'E-mail de recuperaçãd de senha enviado', color: 'success' });
             await dispatchLogOut(context);
         } catch (error) {
             commitRemoveNotification(context, loadingNotification);
-            commitAddNotification(context, { color: 'error', content: 'Incorrect username' });
+            commitAddNotification(context, { color: 'error', content: 'Nome de usu' });
         }
     },
     async resetPassword(context: MainContext, payload: { password: string, token: string }) {
-        const loadingNotification = { content: 'Resetting password', showProgress: true };
+        const loadingNotification = { content: 'Resetando senha', showProgress: true };
         try {
             commitAddNotification(context, loadingNotification);
             const response = (await Promise.all([
@@ -147,11 +147,11 @@ export const actions = {
                 await new Promise<void>((resolve, reject) => setTimeout(() => resolve(), 500)),
             ]))[0];
             commitRemoveNotification(context, loadingNotification);
-            commitAddNotification(context, { content: 'Password successfully reset', color: 'success' });
+            commitAddNotification(context, { content: 'Senha resetada com sucesso', color: 'success' });
             await dispatchLogOut(context);
         } catch (error) {
             commitRemoveNotification(context, loadingNotification);
-            commitAddNotification(context, { color: 'error', content: 'Error resetting password' });
+            commitAddNotification(context, { color: 'error', content: 'Erro ao resetar senha' });
         }
     },
 };

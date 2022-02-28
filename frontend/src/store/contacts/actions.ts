@@ -15,7 +15,7 @@ type MainContext = ActionContext<ContactState, State>;
 export const actions = {
     async actionCreateContact(context: MainContext, payload: IContactCreate) {
         try {
-            const loadingNotification = { content: 'saving', showProgress: true };
+            const loadingNotification = { content: 'Salvando...', showProgress: true };
 
             commitAddNotification(context, loadingNotification);
 
@@ -26,7 +26,7 @@ export const actions = {
 
             commitSetContact(context, response.data);
             commitRemoveNotification(context, loadingNotification);
-            commitAddNotification(context, { content: 'Contact successfully created', color: 'success' });
+            commitAddNotification(context, { content: 'Contato criado com sucesso', color: 'success' });
         } catch (error) {
             await dispatchCheckApiError(context, error as AxiosError);
         }
@@ -66,7 +66,7 @@ export const actions = {
     },
     async actionUpdateContact(context: MainContext, payload: { id: number, contact: IContactUpdate }) {
         try {
-            const loadingNotification = { content: 'saving', showProgress: true };
+            const loadingNotification = { content: 'Salvando...', showProgress: true };
 
             commitAddNotification(context, loadingNotification);
 
@@ -77,7 +77,7 @@ export const actions = {
 
             commitSetContact(context, response.data);
             commitRemoveNotification(context, loadingNotification);
-            commitAddNotification(context, { content: 'Contact successfully updated', color: 'success' });
+            commitAddNotification(context, { content: 'Contato atualizado com sucesso', color: 'success' });
         } catch (error) {
             await dispatchCheckApiError(context, error as AxiosError);
         }

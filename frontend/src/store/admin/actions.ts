@@ -25,7 +25,7 @@ export const actions = {
     },
     async actionUpdateUser(context: MainContext, payload: { id: number, user: IUserProfileUpdate }) {
         try {
-            const loadingNotification = { content: 'saving', showProgress: true };
+            const loadingNotification = { content: 'Salvando...', showProgress: true };
             commitAddNotification(context, loadingNotification);
             const response = (await Promise.all([
                 api.user.updateUser(context.rootState.main.token, payload.id, payload.user),
@@ -33,14 +33,14 @@ export const actions = {
             ]))[0];
             commitSetUser(context, response.data);
             commitRemoveNotification(context, loadingNotification);
-            commitAddNotification(context, { content: 'User successfully updated', color: 'success' });
+            commitAddNotification(context, { content: 'Usuário atualizado com sucesso', color: 'success' });
         } catch (error) {
             await dispatchCheckApiError(context, error as AxiosError);
         }
     },
     async actionCreateUser(context: MainContext, payload: IUserProfileCreate) {
         try {
-            const loadingNotification = { content: 'saving', showProgress: true };
+            const loadingNotification = { content: 'Salvando...', showProgress: true };
             commitAddNotification(context, loadingNotification);
             const response = (await Promise.all([
                 api.user.createUser(context.rootState.main.token, payload),
@@ -48,7 +48,7 @@ export const actions = {
             ]))[0];
             commitSetUser(context, response.data);
             commitRemoveNotification(context, loadingNotification);
-            commitAddNotification(context, { content: 'User successfully created', color: 'success' });
+            commitAddNotification(context, { content: 'Usuário criado com sucesso', color: 'success' });
         } catch (error) {
             await dispatchCheckApiError(context, error as AxiosError);
         }

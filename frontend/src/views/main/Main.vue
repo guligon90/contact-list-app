@@ -42,7 +42,7 @@
           <v-subheader>Contatos</v-subheader>
           <v-list-tile to="/main/contacts/all">
             <v-list-tile-action>
-              <v-icon>group</v-icon>
+              <v-icon>contacts</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>Gerenciar</v-list-tile-title>

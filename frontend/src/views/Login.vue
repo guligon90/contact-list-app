@@ -10,19 +10,34 @@
             </v-toolbar>
             <v-card-text>
               <v-form @keyup.enter="submit">
-                <v-text-field @keyup.enter="submit" v-model="email" prepend-icon="person" name="login" label="Login" type="text"></v-text-field>
-                <v-text-field @keyup.enter="submit" v-model="password" prepend-icon="lock" name="password" label="Password" id="password" type="password"></v-text-field>
+                <v-text-field
+                  @keyup.enter="submit"
+                  v-model="email"
+                  prepend-icon="person"
+                  name="login"
+                  label="Usuário (e-mail)"
+                  type="text">
+                </v-text-field>
+                <v-text-field
+                  @keyup.enter="submit"
+                  v-model="password"
+                  prepend-icon="lock"
+                  name="password"
+                  label="Senha"
+                  id="password"
+                  type="password">
+                </v-text-field>
               </v-form>
               <div v-if="loginError">
                 <v-alert :value="loginError" transition="fade-transition" type="error">
-                  Incorrect email or password
+                  E-mail ou senha incorretos
                 </v-alert>
               </div>
-              <v-flex class="caption text-xs-right"><router-link to="/recover-password">Forgot your password?</router-link></v-flex>
+              <v-flex class="caption text-xs-right"><router-link to="/recover-password">Esqueceu a senha?</router-link></v-flex>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn @click.prevent="submit">Login</v-btn>
+              <v-btn @click.prevent="submit">Entrar</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
