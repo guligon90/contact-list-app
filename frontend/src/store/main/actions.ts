@@ -20,7 +20,7 @@ type MainContext = ActionContext<MainState, State>;
 export const actions = {
     async actionLogIn(context: MainContext, payload: { username: string; password: string }) {
         try {
-            const response = await api.logInGetToken(payload.username, payload.password);
+            const response = await api.user.logInGetToken(payload.username, payload.password);
             const token = response.data.access_token;
             if (token) {
                 saveLocalToken(token);
@@ -40,7 +40,7 @@ export const actions = {
     },
     async actionGetUserProfile(context: MainContext) {
         try {
-            const response = await api.getMe(context.state.token);
+            const response = await api.user.getMe(context.state.token);
             if (response.data) {
                 commitSetUserProfile(context, response.data);
             }
@@ -53,7 +53,7 @@ export const actions = {
             const loadingNotification = { content: 'saving', showProgress: true };
             commitAddNotification(context, loadingNotification);
             const response = (await Promise.all([
-                api.updateMe(context.state.token, payload),
+                api.user.updateMe(context.state.token, payload),
                 await new Promise<void>((resolve, reject) => setTimeout(() => resolve(), 500)),
             ]))[0];
             commitSetUserProfile(context, response.data);
@@ -75,7 +75,7 @@ export const actions = {
             }
             if (token) {
                 try {
-                    const response = await api.getMe(token);
+                    const response = await api.user.getMe(token);
                     commitSetLoggedIn(context, true);
                     commitSetUserProfile(context, response.data);
                 } catch (error) {
@@ -127,7 +127,7 @@ export const actions = {
         try {
             commitAddNotification(context, loadingNotification);
             const response = (await Promise.all([
-                api.passwordRecovery(payload.username),
+                api.user.passwordRecovery(payload.username),
                 await new Promise<void>((resolve, reject) => setTimeout(() => resolve(), 500)),
             ]))[0];
             commitRemoveNotification(context, loadingNotification);
@@ -143,7 +143,7 @@ export const actions = {
         try {
             commitAddNotification(context, loadingNotification);
             const response = (await Promise.all([
-                api.resetPassword(payload.password, payload.token),
+                api.user.resetPassword(payload.password, payload.token),
                 await new Promise<void>((resolve, reject) => setTimeout(() => resolve(), 500)),
             ]))[0];
             commitRemoveNotification(context, loadingNotification);

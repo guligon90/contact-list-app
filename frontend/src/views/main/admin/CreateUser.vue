@@ -2,22 +2,63 @@
   <v-container fluid>
     <v-card class="ma-3 pa-3">
       <v-card-title primary-title>
-        <div class="headline primary--text">Create User</div>
+        <div class="headline primary--text">Criar Usuário</div>
       </v-card-title>
       <v-card-text>
         <template>
           <v-form v-model="valid" ref="form" lazy-validation>
-            <v-text-field label="Full Name" v-model="fullName" required></v-text-field>
-            <v-text-field label="E-mail" type="email" v-model="email" v-validate="'required|email'" data-vv-name="email" :error-messages="errors.collect('email')" required></v-text-field>
-            <div class="subheading secondary--text text--lighten-2">User is superuser <span v-if="isSuperuser">(currently is a superuser)</span><span v-else>(currently is not a superuser)</span></div>
-            <v-checkbox label="Is Superuser" v-model="isSuperuser"></v-checkbox>
-            <div class="subheading secondary--text text--lighten-2">User is active <span v-if="isActive">(currently active)</span><span v-else>(currently not active)</span></div>
-            <v-checkbox label="Is Active" v-model="isActive"></v-checkbox>
+            <v-text-field
+              label="Nome Completo"
+              v-model="fullName" required>
+            </v-text-field>
+            <v-text-field
+              label="E-mail"
+              type="email"
+              v-model="email"
+              v-validate="'required|email'"
+              data-vv-name="email"
+              :error-messages="errors.collect('email')"
+              required>
+            </v-text-field>
+            <div class="subheading secondary--text text--lighten-2">
+              Credenciais
+              <span v-if="isSuperuser">(será superusuário)</span>
+              <span v-else>(não será superusuário)</span>
+            </div>
+            <v-checkbox
+              label="Superusuário?"
+              v-model="isSuperuser">
+            </v-checkbox>
+            <div class="subheading secondary--text text--lighten-2">
+              Usuário ativo
+              <span v-if="isActive">(ativo)</span>
+              <span v-else>(inativo)</span>
+            </div>
+            <v-checkbox
+              label="Ativo?"
+              v-model="isActive">
+            </v-checkbox>
             <v-layout align-center>
               <v-flex>
-                <v-text-field type="password" ref="password" label="Set Password" data-vv-name="password" data-vv-delay="100" v-validate="{required: true}" v-model="password1" :error-messages="errors.first('password')">
+                <v-text-field
+                  type="password"
+                  ref="password"
+                  label="Informar Senha"
+                  data-vv-name="password"
+                  data-vv-delay="100"
+                  v-validate="{required: true}"
+                  v-model="password1"
+                  :error-messages="errors.first('password')">
                 </v-text-field>
-                <v-text-field type="password" label="Confirm Password" data-vv-name="password_confirmation" data-vv-delay="100" data-vv-as="password" v-validate="{required: true, confirmed: 'password'}" v-model="password2" :error-messages="errors.first('password_confirmation')">
+                <v-text-field
+                  type="password"
+                  label="Confirm Password"
+                  data-vv-name="password_confirmation"
+                  data-vv-delay="100"
+                  data-vv-as="password"
+                  v-validate="{required: true, confirmed: 'password'}"
+                  v-model="password2"
+                  :error-messages="errors.first('password_confirmation')">
                 </v-text-field>
               </v-flex>
             </v-layout>
@@ -26,10 +67,10 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn @click="cancel">Cancel</v-btn>
-        <v-btn @click="reset">Reset</v-btn>
+        <v-btn @click="cancel">Cancelar</v-btn>
+        <v-btn @click="reset">Desfazer</v-btn>
         <v-btn @click="submit" :disabled="!valid">
-              Save
+              Salvar
             </v-btn>
       </v-card-actions>
     </v-card>

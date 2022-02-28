@@ -1,16 +1,10 @@
 import axios from 'axios';
+
 import { apiUrl } from '@/env';
-import { IUserProfile, IUserProfileUpdate, IUserProfileCreate } from './interfaces';
+import { authHeaders } from './common';
+import { IUserProfile, IUserProfileUpdate, IUserProfileCreate } from '../interfaces';
 
-function authHeaders(token: string) {
-  return {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-}
-
-export const api = {
+const userApi = {
   async logInGetToken(username: string, password: string) {
     const params = new URLSearchParams();
     params.append('username', username);
@@ -43,3 +37,5 @@ export const api = {
     });
   },
 };
+
+export default userApi;

@@ -5,12 +5,13 @@
         <div class="headline primary--text">Dashboard</div>
       </v-card-title>
       <v-card-text>
-        <div class="headline font-weight-light ma-5">Welcome {{greetedUser}}</div>
+        <div class="headline font-weight-light ma-5">Bem-vindo(a), {{greetedUser}}!</div>
       </v-card-text>
       <v-card-actions>
-        <v-btn to="/main/profile/view">View Profile</v-btn>
-        <v-btn to="/main/profile/edit">Edit Profile</v-btn>
-        <v-btn to="/main/profile/password">Change Password</v-btn>
+        <v-btn to="/main/profile/view">Ver Perfil</v-btn>
+        <v-btn to="/main/profile/edit">Editar Perfil</v-btn>
+        <v-btn to="/main/profile/password">Alterar Senha</v-btn>
+        <v-btn to="/main/contacts/all">Gerenciar Contatos</v-btn>
       </v-card-actions>
     </v-card>
   </v-container>

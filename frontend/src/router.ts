@@ -59,6 +59,30 @@ export default new Router({
               ],
             },
             {
+              path: 'contacts',
+              component: RouterComponent,
+              redirect: 'contacts/all',
+              children: [
+                {
+                  path: 'all',
+                  component: () => import(
+                    /* webpackChunkName: "main-contacts-manage" */ './views/main/contacts/ManageContacts.vue'),
+                },
+                {
+                  path: 'create',
+                  name: 'main-contacts-create',
+                  component: () => import(
+                    /* webpackChunkName: "main-contacts-create" */ './views/main/contacts/CreateContact.vue'),
+                },
+                {
+                  path: 'edit/:id',
+                  name: 'main-contacts-edit',
+                  component: () => import(
+                    /* webpackChunkName: "main-contacts-edit" */ './views/main/contacts/EditContact.vue'),
+                },
+              ],
+            },
+            {
               path: 'admin',
               component: () => import(/* webpackChunkName: "main-admin" */ './views/main/admin/Admin.vue'),
               redirect: 'admin/users/all',

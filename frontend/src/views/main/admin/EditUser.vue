@@ -2,12 +2,12 @@
   <v-container fluid>
     <v-card class="ma-3 pa-3">
       <v-card-title primary-title>
-        <div class="headline primary--text">Edit User</div>
+        <div class="headline primary--text">Editar Usuário</div>
       </v-card-title>
       <v-card-text>
         <template>
           <div class="my-3">
-            <div class="subheading secondary--text text--lighten-2">Username</div>
+            <div class="subheading secondary--text text--lighten-2">Nome de usuário</div>
             <div
               class="title primary--text text--darken-2"
               v-if="user"
@@ -23,7 +23,7 @@
             lazy-validation
           >
             <v-text-field
-              label="Full Name"
+              label="Nome Completo"
               v-model="fullName"
               required
             ></v-text-field>
@@ -36,14 +36,14 @@
               :error-messages="errors.collect('email')"
               required
             ></v-text-field>
-            <div class="subheading secondary--text text--lighten-2">User is superuser <span v-if="isSuperuser">(currently is a superuser)</span><span v-else>(currently is not a superuser)</span></div>
+            <div class="subheading secondary--text text--lighten-2">Credenciais: <span v-if="isSuperuser">(será superusuário)</span><span v-else>(não será superusuário)</span></div>
             <v-checkbox
-              label="Is Superuser"
+              label="Superusuário?"
               v-model="isSuperuser"
             ></v-checkbox>
-            <div class="subheading secondary--text text--lighten-2">User is active <span v-if="isActive">(currently active)</span><span v-else>(currently not active)</span></div>
+            <div class="subheading secondary--text text--lighten-2">Ativação: <span v-if="isActive">(ativo)</span><span v-else>(inativo)</span></div>
             <v-checkbox
-              label="Is Active"
+              label="Ativo?"
               v-model="isActive"
             ></v-checkbox>
             <v-layout align-center>
@@ -58,7 +58,7 @@
                   :disabled="!setPassword"
                   type="password"
                   ref="password"
-                  label="Set Password"
+                  label="Alterar Senha"
                   data-vv-name="password"
                   data-vv-delay="100"
                   v-validate="{required: setPassword}"
@@ -69,7 +69,7 @@
                 <v-text-field
                   v-show="setPassword"
                   type="password"
-                  label="Confirm Password"
+                  label="Confirmar Senha"
                   data-vv-name="password_confirmation"
                   data-vv-delay="100"
                   data-vv-as="password"
@@ -85,13 +85,13 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn @click="cancel">Cancel</v-btn>
-        <v-btn @click="reset">Reset</v-btn>
+        <v-btn @click="cancel">Cancelar</v-btn>
+        <v-btn @click="reset">Desfazer</v-btn>
         <v-btn
           @click="submit"
           :disabled="!valid"
         >
-          Save
+          Salvar
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -125,6 +125,7 @@ export default class EditUser extends Vue {
     this.password1 = '';
     this.password2 = '';
     this.$validator.reset();
+
     if (this.user) {
       this.fullName = this.user.full_name;
       this.email = this.user.email;
@@ -140,18 +141,24 @@ export default class EditUser extends Vue {
   public async submit() {
     if (await this.$validator.validateAll()) {
       const updatedProfile: IUserProfileUpdate = {};
+
       if (this.fullName) {
         updatedProfile.full_name = this.fullName;
       }
+
       if (this.email) {
         updatedProfile.email = this.email;
       }
+
       updatedProfile.is_active = this.isActive;
       updatedProfile.is_superuser = this.isSuperuser;
+
       if (this.setPassword) {
         updatedProfile.password = this.password1;
       }
+
       await dispatchUpdateUser(this.$store, { id: this.user!.id, user: updatedProfile });
+
       this.$router.push('/main/admin/users');
     }
   }
