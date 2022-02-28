@@ -1,4 +1,6 @@
-# Contact List App
+# Contact List Web Application
+
+Technical assessment regarding the position of full-stack engineer at [Horus Smart Detections](https://horus.global/). As per company's request, the back-end was written in Python (v3.7), using the [FastAPI](https://fastapi.tiangolo.com/) framework to build the RESTful API, and the front-end layer in TypeScript, using [Vue.js](https://vuejs.org/) as the framework for building UI components.
 
 ## Table of Contents
 
@@ -31,16 +33,8 @@
     - [(Optionally) adding labels manually](#optionally-adding-labels-manually)
   - [Deploy to a Docker Swarm mode cluster](#deploy-to-a-docker-swarm-mode-cluster)
     - [Deployment Technical Details](#deployment-technical-details)
-  - [Continuous Integration / Continuous Delivery](#continuous-integration--continuous-delivery)
 - [Docker Compose files and env vars](#docker-compose-files-and-env-vars)
   - [The .env file](#the-env-file)
-- [URLs](#urls)
-  - [Production URLs](#production-urls)
-  - [Staging URLs](#staging-urls)
-  - [Development URLs](#development-urls)
-  - [Development with Docker Toolbox URLs](#development-with-docker-toolbox-urls)
-  - [Development with a custom IP URLs](#development-with-a-custom-ip-urls)
-  - [Development in localhost with a custom domain URLs](#development-in-localhost-with-a-custom-domain-urls)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -59,24 +53,21 @@
 * Start the stack with Docker Compose:
 
 ```bash
+docker-compose build --pull
 docker-compose up -d
 ```
 
 * Now you can open your browser and interact with these URLs:
 
-Frontend, built with Docker, with routes handled based on the path: http://localhost
-
-Backend, JSON based web API based on OpenAPI: http://localhost/api/
-
-Automatic interactive documentation with Swagger UI (from the OpenAPI backend): http://localhost/docs
-
-Alternative automatic documentation with ReDoc (from the OpenAPI backend): http://localhost/redoc
-
-PGAdmin, PostgreSQL web administration: http://localhost:5050
-
-Flower, administration of Celery tasks: http://localhost:5555
-
-Traefik UI, to see how the routes are being handled by the proxy: http://localhost:8090
+| **Service** | **Description**                                                                | **URL**                |
+|-------------|--------------------------------------------------------------------------------|------------------------|
+| Backend     | SON based web API based on OpenAPI                                             | http://localhost/api   |
+| Frontend    | built with Docker, with routes handled based on the path                       | http://localhost       |
+| Swagger UI  | Automatic interactive documentation with Swagger UI (from the OpenAPI backend) | http://localhost/docs  |
+| ReDoc       | Alternative automatic documentation with ReDoc (from the OpenAPI backend)      | http://localhost/redoc |
+| PGAdmin     | PostgreSQL web administration                                                  | http://localhost:5050  |
+| Flower      | Administration of Celery tasks                                                 | http://localhost:5555  |
+| Traefik UI  | To see how the routes are being handled by the proxy                           | http://localhost:8090  |
 
 **Note**: The first time you start your stack, it might take a minute for it to be ready. While the backend waits for the database to be ready and configures everything. You can check the logs to monitor it.
 
@@ -265,7 +256,7 @@ root@73e0ec1f1ae6:/app# $JUPYTER
         http://(73e0ec1f1ae6 or 127.0.0.1):8888/?token=f20939a41524d021fbfc62b31be8ea4dd9232913476f4397
 ```
 
-you can copy that URL and modify the "host" to be `localhost` or the domain you are using for development (e.g. `local.dockertoolbox.tiangolo.com`), in the case above, it would be, e.g.:
+you can copy that URL and modify the "host" to be `localhost` or the domain you are using for development (e.g. `local.dockertoolbox.guligon.com`), in the case above, it would be, e.g.:
 
 ```
 http://localhost:8888/token=f20939a41524d021fbfc62b31be8ea4dd9232913476f4397
@@ -323,13 +314,13 @@ If you are using **Docker Toolbox** in Windows or macOS instead of **Docker for 
 
 The address of your Docker Toolbox virtual machine would probably be `192.168.99.100` (that is the default).
 
-As this is a common case, the domain `local.dockertoolbox.tiangolo.com` points to that (private) IP, just to help with development (actually `dockertoolbox.tiangolo.com` and all its subdomains point to that IP). That way, you can start the stack in Docker Toolbox, and use that domain for development. You will be able to open that URL in Chrome and it will communicate with your local Docker Toolbox directly as if it was a cloud server, including CORS (Cross Origin Resource Sharing).
+As this is a common case, the domain `local.dockertoolbox.guligon.com` points to that (private) IP, just to help with development (actually `dockertoolbox.guligon.com` and all its subdomains point to that IP). That way, you can start the stack in Docker Toolbox, and use that domain for development. You will be able to open that URL in Chrome and it will communicate with your local Docker Toolbox directly as if it was a cloud server, including CORS (Cross Origin Resource Sharing).
 
-If you used the default CORS enabled domains while generating the project, `local.dockertoolbox.tiangolo.com` was configured to be allowed. If you didn't, you will need to add it to the list in the variable `BACKEND_CORS_ORIGINS` in the `.env` file.
+If you used the default CORS enabled domains while generating the project, `local.dockertoolbox.guligon.com` was configured to be allowed. If you didn't, you will need to add it to the list in the variable `BACKEND_CORS_ORIGINS` in the `.env` file.
 
-To configure it in your stack, follow the section **Change the development "domain"** below, using the domain `local.dockertoolbox.tiangolo.com`.
+To configure it in your stack, follow the section **Change the development "domain"** below, using the domain `local.dockertoolbox.guligon.com`.
 
-After performing those steps you should be able to open: http://local.dockertoolbox.tiangolo.com and it will be server by your stack in your Docker Toolbox virtual machine.
+After performing those steps you should be able to open: http://local.dockertoolbox.guligon.com and it will be server by your stack in your Docker Toolbox virtual machine.
 
 Check all the corresponding available URLs in the section at the end.
 
@@ -337,13 +328,13 @@ Check all the corresponding available URLs in the section at the end.
 
 You might want to use something different than `localhost` as the domain. For example, if you are having problems with cookies that need a subdomain, and Chrome is not allowing you to use `localhost`.
 
-In that case, you have two options: you could use the instructions to modify your system `hosts` file with the instructions below in **Development with a custom IP** or you can just use `localhost.tiangolo.com`, it is set up to point to `localhost` (to the IP `127.0.0.1`) and all its subdomains too. And as it is an actual domain, the browsers will store the cookies you set during development, etc.
+In that case, you have two options: you could use the instructions to modify your system `hosts` file with the instructions below in **Development with a custom IP** or you can just use `localhost.guligon.com`, it is set up to point to `localhost` (to the IP `127.0.0.1`) and all its subdomains too. And as it is an actual domain, the browsers will store the cookies you set during development, etc.
 
-If you used the default CORS enabled domains while generating the project, `localhost.tiangolo.com` was configured to be allowed. If you didn't, you will need to add it to the list in the variable `BACKEND_CORS_ORIGINS` in the `.env` file.
+If you used the default CORS enabled domains while generating the project, `localhost.guligon.com` was configured to be allowed. If you didn't, you will need to add it to the list in the variable `BACKEND_CORS_ORIGINS` in the `.env` file.
 
-To configure it in your stack, follow the section **Change the development "domain"** below, using the domain `localhost.tiangolo.com`.
+To configure it in your stack, follow the section **Change the development "domain"** below, using the domain `localhost.guligon.com`.
 
-After performing those steps you should be able to open: http://localhost.tiangolo.com and it will be server by your stack in `localhost`.
+After performing those steps you should be able to open: http://localhost.guligon.com and it will be server by your stack in `localhost`.
 
 Check all the corresponding available URLs in the section at the end.
 
@@ -380,7 +371,7 @@ Check all the corresponding available URLs in the section at the end.
 
 ### Change the development "domain"
 
-If you need to use your local stack with a different domain than `localhost`, you need to make sure the domain you use points to the IP where your stack is set up. See the different ways to achieve that in the sections above (i.e. using Docker Toolbox with `local.dockertoolbox.tiangolo.com`, using `localhost.tiangolo.com` or using `dev.contact-list-app.com`).
+If you need to use your local stack with a different domain than `localhost`, you need to make sure the domain you use points to the IP where your stack is set up. See the different ways to achieve that in the sections above (i.e. using Docker Toolbox with `local.dockertoolbox.guligon.com`, using `localhost.guligon.com` or using `dev.contact-list-app.com`).
 
 To simplify your Docker Compose setup, for example, so that the API docs (Swagger UI) knows where is your API, you should let it know you are using that domain for development. You will need to edit 1 line in 2 files.
 
@@ -393,7 +384,7 @@ DOMAIN=localhost
 * Change it to the domain you are going to use, e.g.:
 
 ```
-DOMAIN=localhost.tiangolo.com
+DOMAIN=localhost.guligon.com
 ```
 
 That variable will be used by the Docker Compose files.
@@ -407,7 +398,7 @@ VUE_APP_DOMAIN_DEV=localhost
 * Change that line to the domain you are going to use, e.g.:
 
 ```
-VUE_APP_DOMAIN_DEV=localhost.tiangolo.com
+VUE_APP_DOMAIN_DEV=localhost.guligon.com
 ```
 
 That variable will make your frontend communicate with that domain when interacting with your backend API, when the other variable `VUE_APP_ENV` is set to `development`.
@@ -558,7 +549,7 @@ Then you have to create those labels in some nodes in your Docker Swarm mode clu
 
 #### `docker-auto-labels`
 
-You can use [`docker-auto-labels`](https://github.com/tiangolo/docker-auto-labels) to automatically read the placement constraint labels in your Docker stack (Docker Compose file) and assign them to a random Docker node in your Swarm mode cluster if those labels don't exist yet.
+You can use [`docker-auto-labels`](https://github.com/guligon/docker-auto-labels) to automatically read the placement constraint labels in your Docker stack (Docker Compose file) and assign them to a random Docker node in your Swarm mode cluster if those labels don't exist yet.
 
 To do that, you can install `docker-auto-labels`:
 
@@ -702,19 +693,6 @@ docker-auto-labels docker-stack.yml
 docker stack deploy -c docker-stack.yml --with-registry-auth "${STACK_NAME?Variable not set}"
 ```
 
-### Continuous Integration / Continuous Delivery
-
-If you use GitLab CI, the included `.gitlab-ci.yml` can automatically deploy it. You may need to update it according to your GitLab configurations.
-
-If you use any other CI / CD provider, you can base your deployment from that `.gitlab-ci.yml` file, as all the actual script steps are performed in `bash` scripts that you can easily re-use.
-
-GitLab CI is configured assuming 2 environments following GitLab flow:
-
-* `prod` (production) from the `production` branch.
-* `stag` (staging) from the `master` branch.
-
-If you need to add more environments, for example, you could imagine using a client-approved `preprod` branch, you can just copy the configurations in `.gitlab-ci.yml` for `stag` and rename the corresponding variables. The Docker Compose file and environment variables are configured to support as many environments as you need, so that you only need to modify `.gitlab-ci.yml` (or whichever CI system configuration you are using).
-
 ## Docker Compose files and env vars
 
 There is a main `docker-compose.yml` file with all the configurations that apply to the whole stack, it is used automatically by `docker-compose`.
@@ -738,111 +716,3 @@ The `.env` file is the one that contains all your configurations, generated keys
 Depending on your workflow, you could want to exclude it from Git, for example if your project is public. In that case, you would have to make sure to set up a way for your CI tools to obtain it while building or deploying your project.
 
 One way to do it could be to add each environment variable to your CI/CD system, and updating the `docker-compose.yml` file to read that specific env var instead of reading the `.env` file.
-
-## URLs
-
-These are the URLs that will be used and generated by the project.
-
-### Production URLs
-
-Production URLs, from the branch `production`.
-
-Frontend: https://contact-list-app.com
-
-Backend: https://contact-list-app.com/api/
-
-Automatic Interactive Docs (Swagger UI): https://contact-list-app.com/docs
-
-Automatic Alternative Docs (ReDoc): https://contact-list-app.com/redoc
-
-PGAdmin: https://pgadmin.contact-list-app.com
-
-Flower: https://flower.contact-list-app.com
-
-### Staging URLs
-
-Staging URLs, from the branch `master`.
-
-Frontend: https://stag.contact-list-app.com
-
-Backend: https://stag.contact-list-app.com/api/
-
-Automatic Interactive Docs (Swagger UI): https://stag.contact-list-app.com/docs
-
-Automatic Alternative Docs (ReDoc): https://stag.contact-list-app.com/redoc
-
-PGAdmin: https://pgadmin.stag.contact-list-app.com
-
-Flower: https://flower.stag.contact-list-app.com
-
-### Development URLs
-
-Development URLs, for local development.
-
-Frontend: http://localhost
-
-Backend: http://localhost/api/
-
-Automatic Interactive Docs (Swagger UI): https://localhost/docs
-
-Automatic Alternative Docs (ReDoc): https://localhost/redoc
-
-PGAdmin: http://localhost:5050
-
-Flower: http://localhost:5555
-
-Traefik UI: http://localhost:8090
-
-### Development with Docker Toolbox URLs
-
-Development URLs, for local development.
-
-Frontend: http://local.dockertoolbox.tiangolo.com
-
-Backend: http://local.dockertoolbox.tiangolo.com/api/
-
-Automatic Interactive Docs (Swagger UI): https://local.dockertoolbox.tiangolo.com/docs
-
-Automatic Alternative Docs (ReDoc): https://local.dockertoolbox.tiangolo.com/redoc
-
-PGAdmin: http://local.dockertoolbox.tiangolo.com:5050
-
-Flower: http://local.dockertoolbox.tiangolo.com:5555
-
-Traefik UI: http://local.dockertoolbox.tiangolo.com:8090
-
-### Development with a custom IP URLs
-
-Development URLs, for local development.
-
-Frontend: http://dev.contact-list-app.com
-
-Backend: http://dev.contact-list-app.com/api/
-
-Automatic Interactive Docs (Swagger UI): https://dev.contact-list-app.com/docs
-
-Automatic Alternative Docs (ReDoc): https://dev.contact-list-app.com/redoc
-
-PGAdmin: http://dev.contact-list-app.com:5050
-
-Flower: http://dev.contact-list-app.com:5555
-
-Traefik UI: http://dev.contact-list-app.com:8090
-
-### Development in localhost with a custom domain URLs
-
-Development URLs, for local development.
-
-Frontend: http://localhost.tiangolo.com
-
-Backend: http://localhost.tiangolo.com/api/
-
-Automatic Interactive Docs (Swagger UI): https://localhost.tiangolo.com/docs
-
-Automatic Alternative Docs (ReDoc): https://localhost.tiangolo.com/redoc
-
-PGAdmin: http://localhost.tiangolo.com:5050
-
-Flower: http://localhost.tiangolo.com:5555
-
-Traefik UI: http://localhost.tiangolo.com:8090
