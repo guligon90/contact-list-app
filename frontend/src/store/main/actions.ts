@@ -131,11 +131,11 @@ export const actions = {
                 await new Promise<void>((resolve, reject) => setTimeout(() => resolve(), 500)),
             ]))[0];
             commitRemoveNotification(context, loadingNotification);
-            commitAddNotification(context, { content: 'E-mail de recuperaçãd de senha enviado', color: 'success' });
+            commitAddNotification(context, { content: 'E-mail de recuperação de senha enviado', color: 'success' });
             await dispatchLogOut(context);
         } catch (error) {
             commitRemoveNotification(context, loadingNotification);
-            commitAddNotification(context, { color: 'error', content: 'Nome de usu' });
+            commitAddNotification(context, { color: 'error', content: 'E-mail não cadastrado' });
         }
     },
     async resetPassword(context: MainContext, payload: { password: string, token: string }) {
