@@ -60,7 +60,7 @@ docker-compose up -d
 
 | **Service** | **Description**                                                                   | **URL**                |
 |-------------|-----------------------------------------------------------------------------------|------------------------|
-| Backend     | JSON based web RESTful, written in Python, using FasAPI                           | http://localhost/api   |
+| Backend     | JSON based web RESTful API, written in Python, using FasAPI                       | http://localhost/api   |
 | Frontend    | UI, written in TypeScript, using the [Flux Architecture](https://dev.to/durutheguru/implementing-the-flux-architecture-pattern-in-vuejs-57gp) for Vue.js | http://localhost       |
 | Swagger UI  | Automatic interactive documentation with Swagger UI (from the OpenAPI backend) | http://localhost/docs  |
 | ReDoc       | Alternative automatic documentation with ReDoc (from the OpenAPI backend)      | http://localhost/redoc |
