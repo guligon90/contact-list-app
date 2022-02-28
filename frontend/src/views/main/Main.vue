@@ -132,7 +132,7 @@
     </v-content>
     <v-footer class="pa-3" fixed app>
       <v-spacer></v-spacer>
-      <span>&copy; {{currYear}} <a href={{linkToGithub}} @click.prevent="">{{authorName}}</a></span>
+      <span>&copy; {{currYear}} {{authorName}}</span>
     </v-footer>
   </div>
 </template>
@@ -158,7 +158,6 @@ export default class Main extends Vue {
   public appName = appName;
   public authorName = authorName;
   public currYear = new Date().getFullYear();
-  public linkToGithub = `https://www.github.com/${authorName}`;
 
   public beforeRouteEnter(to, from, next) {
     routeGuardMain(to, from, next);
